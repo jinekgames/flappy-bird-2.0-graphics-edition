@@ -180,6 +180,8 @@
     <Media Include="resources\music.wav" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\.gitignore" />
+    <None Include="..\README" />
     <None Include="resources\cur1.ani" />
   </ItemGroup>
   <ItemGroup>

@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\other files">
+      <UniqueIdentifier>{e7395da3-b8a0-4e0e-81d9-74efc27adb74}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -61,6 +64,12 @@
   <ItemGroup>
     <None Include="resources\cur1.ani">
       <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\.gitignore">
+      <Filter>Source Files\other files</Filter>
+    </None>
+    <None Include="..\README">
+      <Filter>Source Files\other files</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
