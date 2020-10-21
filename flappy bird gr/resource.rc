@@ -1,0 +1,12 @@
+#include "resource.h"
+
+ICO_MYICON ICON resources\icon0.ico
+CUR_MYCUR CURSOR resources\cur1.ani
+
+WAV_APP_CLOSE WAVE resources\close.wav
+WAV_PHONK WAVE resources\music.wav
+
+MAIN_MENU MENU DISCARDABLE
+{
+	MENUITEM "музыка", MENU_PHONK
+}
