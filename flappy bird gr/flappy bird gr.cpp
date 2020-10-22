@@ -20,6 +20,11 @@
 
 #define PHONK_PLAY TRUE
 
+//Количество точек фона (2 это низ)
+#define BACKGROUND_POINTS_COUNT 7
+//Расстояние между тчоками фона
+#define BACKGROUND_POINTS_STEP 160
+
 //Инициализация класса для вычислений игры
 GameProc game(WINDOW_SIZE_X, WINDOW_SIZE_Y);
 //Запуск программы
@@ -33,6 +38,8 @@ bool pause = false;
 bool spaceKeyDown = false;
 //Стостояние клавиши Esc
 bool escKeyDown = false;
+//Стостояние клавиши harcore (f1)
+bool hardcoreKeyDown = false;
 
 //Счетчик числа вызовов WM_PAINT
 int drawCallNum = 0;
@@ -49,7 +56,13 @@ POINT cursorCoords;
 POINT windowCoords;
 
 //Триггер проигрывания фонка
-bool phonkPlay = PHONK_PLAY;
+bool musicPlay = PHONK_PLAY;
+
+//Триггер хардкорного режима
+bool isHardcore = FALSE;
+
+//Массив с точками фона
+POINT background[BACKGROUND_POINTS_COUNT] = { {WINDOW_SIZE_X, WINDOW_SIZE_Y},  {0, WINDOW_SIZE_Y} };
 
 HINSTANCE hinstance_app;
 
@@ -65,8 +78,8 @@ LRESULT CALLBACK WinProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 	{
 	case WM_CREATE:	//Инициализация
 	{
-		if (phonkPlay) {
-			PlaySound(MAKEINTRESOURCE(WAV_PHONK), hinstance_app, SND_ASYNC | SND_LOOP | SND_RESOURCE);
+		if (musicPlay) {
+			PlaySound(MAKEINTRESOURCE(WAV_MUSIC), hinstance_app, SND_ASYNC | SND_LOOP | SND_RESOURCE);
 		}
 		return 0;
 	} break;
@@ -116,6 +129,24 @@ LRESULT CALLBACK WinProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 					}
 				}
 			} break;
+			case VK_F1:
+			{
+				if (!hardcoreKeyDown) {
+					hardcoreKeyDown = TRUE;
+					isHardcore = game.makeHardcore();
+					switch (isHardcore)
+					{
+						case FALSE:
+						{
+							PlaySound(MAKEINTRESOURCE(WAV_MUSIC), hinstance_app, SND_ASYNC | SND_LOOP | SND_RESOURCE);
+						} break;
+						case TRUE:
+						{
+							PlaySound(MAKEINTRESOURCE(WAV_PHONK), hinstance_app, SND_ASYNC | SND_LOOP | SND_RESOURCE);
+						} break;
+					}
+				}
+			} break;
 		}
 		return 0;
 	} break;
@@ -130,6 +161,10 @@ LRESULT CALLBACK WinProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 			case VK_ESCAPE:
 			{
 				escKeyDown = FALSE;
+			} break;
+			case VK_F1:
+			{
+				hardcoreKeyDown = FALSE;
 			} break;
 		}
 		return 0;
@@ -146,6 +181,19 @@ LRESULT CALLBACK WinProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 
 		//перерисовка окна
 
+		//отрисовка фона
+		HBRUSH sky_brush = CreateSolidBrush(RGB(200, 250, 255));
+		SelectObject(hdc, sky_brush);
+		Rectangle(hdc, 0, 0, windowCurSizeX, windowCurSizeY);
+		DeleteObject(sky_brush);
+
+		//отрисовка движущейся части фона
+		HBRUSH grass_brush = CreateSolidBrush(RGB(210, 255, 210));
+		SelectObject(hdc, grass_brush);
+		Polygon(hdc, background, BACKGROUND_POINTS_COUNT);
+		DeleteObject(grass_brush);
+
+
 		//отрисовка движущихся объектов игры
 		if (gameState) {
 			//отрисовка главного объекта
@@ -157,12 +205,16 @@ LRESULT CALLBACK WinProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 
 			//открисовка препятствия
 			POINT wallObj = game.wallCoords();
-			HBRUSH blue_brush = CreateSolidBrush(RGB(0, 255, 0));
-			SelectObject(hdc, blue_brush);
+			HBRUSH green_brush = CreateSolidBrush(RGB(0, 255, 0));
+			SelectObject(hdc, green_brush);
 			Rectangle(hdc, wallObj.x, -1, wallObj.x + WALLSIZE, wallObj.y);
 			Rectangle(hdc, wallObj.x, wallObj.y + WINWALL, wallObj.x + WALLSIZE, WINDOW_SIZE_Y);
-			DeleteObject(blue_brush);
+			DeleteObject(green_brush);
 		}
+
+
+		//устновка прозрачного фона надписей
+		SetBkMode(hdc, TRANSPARENT);
 
 		//Отрисовка надписи при запуске игры
 		if (onStart) {
@@ -209,7 +261,6 @@ LRESULT CALLBACK WinProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 			RECT rect = { windowCurSizeX / 6, 25, windowCurSizeX * 5 / 6, windowCurSizeY };
 			SetTextColor(hdc, RGB(0, 0, 255));
 			char buf[11];
-			SetBkMode(hdc, TRANSPARENT);
 			DrawTextA(hdc, itoa(game.getScore(), buf, 10), -1, &rect, DT_NOCLIP | DT_CENTER);
 			DeleteObject(hFont);
 		}
@@ -228,12 +279,22 @@ LRESULT CALLBACK WinProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 	{
 		switch LOWORD(wparam)
 		{
-			case MENU_PHONK:
+			case MENU_MUSIC:
 			{
-				phonkPlay = !phonkPlay;
-				PlaySound((phonkPlay) ? MAKEINTRESOURCE(WAV_PHONK) : NULL, hinstance_app, (phonkPlay) ? SND_ASYNC | SND_LOOP | SND_RESOURCE : NULL);
-
-			} break;
+				switch (isHardcore)
+				{
+					case FALSE:
+					{
+						musicPlay = !musicPlay;
+						PlaySound((musicPlay) ? MAKEINTRESOURCE(WAV_MUSIC) : NULL, hinstance_app, (musicPlay) ? SND_ASYNC | SND_LOOP | SND_RESOURCE : NULL);
+					} break;
+					case TRUE:
+					{
+						musicPlay = !musicPlay;
+						PlaySound((musicPlay) ? MAKEINTRESOURCE(WAV_PHONK) : NULL, hinstance_app, (musicPlay) ? SND_ASYNC | SND_LOOP | SND_RESOURCE : NULL);
+					} break;
+				}
+			}
 			default:
 				break;
 		}
@@ -274,7 +335,20 @@ int GameMain(HINSTANCE hinstance, HWND hwnd) {
 
 	//ФИЗИКА
 	if (gameState && !pause) {
+		//работа движка
 		gameState = game.proc();
+
+		//смещение фона
+		for (int i = 2; i < BACKGROUND_POINTS_COUNT; i++) {
+			background[i].x--;
+		}
+		if (background[3].x < 0) {
+			for (int i = 3; i < BACKGROUND_POINTS_COUNT; i++) {
+				background[i - 1] = background[i];
+			}
+			background[BACKGROUND_POINTS_COUNT - 1].x = background[BACKGROUND_POINTS_COUNT - 2].x + BACKGROUND_POINTS_STEP;
+			background[BACKGROUND_POINTS_COUNT - 1].y = (rand() % (WINDOW_SIZE_Y - 400)) + 200;;
+		}
 	}
 
 
@@ -288,9 +362,14 @@ int GameMain(HINSTANCE hinstance, HWND hwnd) {
 	return 0;
 }
 
-int WINAPI WinMain(HINSTANCE hinstance, HINSTANCE hprevinstance, LPSTR lpcmdline, int ncmdshow)
-{
+int WINAPI WinMain(HINSTANCE hinstance, HINSTANCE hprevinstance, LPSTR lpcmdline, int ncmdshow) {
 	srand(time(0));
+
+	//заполнение массива с точками фона
+	for (int i = 2; i < BACKGROUND_POINTS_COUNT; i++) {
+		background[i].x = BACKGROUND_POINTS_STEP * (i - 2);
+		background[i].y = (rand() % (WINDOW_SIZE_Y - 400)) + 200;
+	}
 
 	//eбашу окно
 	WNDCLASSEX winclass = {

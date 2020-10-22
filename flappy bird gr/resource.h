@@ -18,6 +18,8 @@
 //звук выключени€ винды
 #define WAV_APP_CLOSE 11
 //музыка
+#define WAV_MUSIC 12
+//музыка
 #define WAV_PHONK 666
 //звук смерти
 //звук получени€ (нет не по ебалу) очка (нет бл€ть в очко)
@@ -29,4 +31,4 @@
 //главное меню
 #define MAIN_MENU 2
 // нопка включени€ музыки
-#define MENU_PHONK 2001
+#define MENU_MUSIC 2001

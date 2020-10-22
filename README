@@ -2,21 +2,21 @@ CHANGE LOGS
 
 
 ========================
-1.0
+1.0     (2019)
 ----------------------
  - console test ver
 ======================
 
 
 ========================
-2.0
+2.0     (20.10.2020)
 ----------------------
  - game was created using win32 api and custom game engine class
 ======================
 
 
 ========================
-2.0.1
+2.0.1   (21.10.2020)
 ----------------------
  - fixed sleep frame timeout for PCs that powerfu af (still shit cos that not fps dependency, but works better)
  - fixed death condition, now it works as it must
@@ -27,10 +27,16 @@ CHANGE LOGS
 ======================
 
 
-=======================
+========================
+2.1     (22.10.2020)
+----------------------
+ - animated background
+ - press f1 for activation lvl death
+======================
+
+========================
 plans for 2.1
---------------------
- - animated fone
+---------------------
  - high score in death screen
  - high score local storage saving with nicknames
  - difficulty lvls

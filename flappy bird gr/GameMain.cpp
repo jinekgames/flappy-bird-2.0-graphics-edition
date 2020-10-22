@@ -22,7 +22,7 @@ void GameProc::rule() {
 
 	else if (x > xwall + WALLSIZE && !wallScored)	//Засчитывание очка
 	{
-		score++;
+		score += (hardcore) ? 3 : 1;
 		wallScored = true;
 	}
 
@@ -72,7 +72,7 @@ void GameProc::jump() {
 bool GameProc::proc() {
 	rule();
 	wall();	
-	xwall -= WALLSPEED;
+	xwall -= (hardcore) ? (WALLSPEED * 3) : WALLSPEED; //перемещение препятствия
 	y = height(v, y);
 	v = speed(v, y);
 	tim++; //Обновление счетчика кадров
@@ -102,6 +102,11 @@ bool GameProc::restart() {
 //Получение набранных очков
 int GameProc::getScore() {
 	return score;
+}
+
+//Изменение уровня сложности
+bool GameProc::makeHardcore() {
+	return hardcore = !hardcore;
 }
 
 ////Получение рекорда из файла
