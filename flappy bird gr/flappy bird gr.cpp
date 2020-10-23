@@ -28,7 +28,7 @@ int sleep_timeout_cmd = SLEEP_TIMEOUT;
 #define BACKGROUND_POINTS_STEP 160
 
 //Необходимость вывода текстов
-#define TEXTS_ACTIVE FALSE
+#define TEXTS_ACTIVE TRUE
 
 //Инициализация класса для вычислений игры
 GameProc game(WINDOW_SIZE_X, WINDOW_SIZE_Y);
