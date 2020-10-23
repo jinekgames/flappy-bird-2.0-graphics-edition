@@ -50,6 +50,9 @@ class GameProc {
 	//Прохождение препятствия
 	bool wallScored = true;
 
+	//активатор уровня сложности
+	bool hardcore = false;
+
 
 	//Конструкторы и деструкторы//
 public:
@@ -93,6 +96,8 @@ public:
 	bool restart();
 	//Получение набранных очков
 	int getScore();
+	//Изменение уровня сложности
+	void makeHardcore(bool hardcoreValue);
 	//Получение рекорда из файла
 	//int getRecord();
 };

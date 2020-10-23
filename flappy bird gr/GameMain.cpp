@@ -20,9 +20,9 @@ void GameProc::rule() {
 	if (x - xwall + MAIN_OBJ_SIZE >= 0 && x - xwall <= WALLSIZE && (y < ywall || y + MAIN_OBJ_SIZE >= ywall + WINWALL))	//Завершение игры при столкновении со стеной
 		game_run = false;
 
-	else if (/*xwall - x <= WALLSIZE*/x > xwall && !wallScored)	//Засчитывание очка
+	else if (x > xwall + WALLSIZE && !wallScored)	//Засчитывание очка
 	{
-		score++;
+		score += (hardcore) ? 3 : 1;
 		wallScored = true;
 	}
 
@@ -32,15 +32,16 @@ void GameProc::rule() {
 		v = 0;
 	}
 
-	if (y >= Y - MAIN_OBJ_SIZE) //Отскок объекта от нижней границы
+	if (y > Y - MAIN_OBJ_SIZE) //Отскок объекта от нижней границы
 	{
-		v = -v;
+		v = v * (-1) * ( rand() % 65 + 35 );
+		v /= 100;
+		y = Y - MAIN_OBJ_SIZE;
 	}
 }
 
 //Спавн стены раз в WALLSTEP кадров
 void GameProc::wall() {
-	//if (tim % (int)((double)WALLTIME / 600.0 * X) == 0 and tim > 0) {
 	if (xwall < -WALLSIZE - 20 && tim > 0) {
 		xwall = X;								//на правом крае поля
 		ywall = rand() % (int)(Y - WINWALL - WINWALL_DOWNSPACE); //с окном в рандомном месте
@@ -71,7 +72,7 @@ void GameProc::jump() {
 bool GameProc::proc() {
 	rule();
 	wall();	
-	xwall -= WALLSPEED;
+	xwall -= (hardcore) ? (WALLSPEED * 3) : WALLSPEED; //перемещение препятствия
 	y = height(v, y);
 	v = speed(v, y);
 	tim++; //Обновление счетчика кадров
@@ -101,6 +102,11 @@ bool GameProc::restart() {
 //Получение набранных очков
 int GameProc::getScore() {
 	return score;
+}
+
+//Изменение уровня сложности
+void GameProc::makeHardcore(bool hardcoreValue) {
+	hardcore = hardcoreValue;
 }
 
 ////Получение рекорда из файла

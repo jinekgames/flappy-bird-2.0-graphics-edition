@@ -1,0 +1,52 @@
+CHANGE LOGS
+
+
+========================
+1.0     (2019)
+----------------------
+ - console test ver
+======================
+
+
+========================
+2.0     (20.10.2020)
+----------------------
+ - game was created using win32 api and custom game engine class
+======================
+
+
+========================
+2.0.1   (21.10.2020)
+----------------------
+ - fixed sleep frame timeout for PCs that powerfu af (still shit cos that not fps dependency, but works better)
+ - fixed death condition, now it works as it must
+ - fixed score calculating according to new death conditions
+ - fixed lowest point of window in walls (from -8px to -400px)
+ - fixed dropping ball down through the floor bug
+ - now floor bounce coefficient is random 35-100%
+======================
+
+
+========================
+2.1     (22.10.2020)
+----------------------
+ - animated background
+ - press f1 for activation lvl death
+======================
+
+
+========================
+2.1.0.1 (23.10.2020)
+----------------------
+ - added lvl death mode sign
+ - added lvl death menu button
+ - added cmdline arg for sleep timeout setup
+======================
+
+
+========================
+plans for 2.1.1
+---------------------
+ - high score in death screen
+ - high score local storage saving with nicknames
+ - difficulty lvls

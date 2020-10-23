@@ -160,6 +160,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ColorConsts.h" />
     <ClInclude Include="flappy bird gr.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="GameMain.h" />
@@ -180,6 +181,8 @@
     <Media Include="resources\music.wav" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\.gitignore" />
+    <None Include="..\README" />
     <None Include="resources\cur1.ani" />
   </ItemGroup>
   <ItemGroup>

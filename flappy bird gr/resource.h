@@ -18,6 +18,8 @@
 //звук выключения винды
 #define WAV_APP_CLOSE 11
 //музыка
+#define WAV_MUSIC 12
+//музыка
 #define WAV_PHONK 666
 //звук смерти
 //звук получения (нет не по ебалу) очка (нет блять в очко)
@@ -28,5 +30,9 @@
 
 //главное меню
 #define MAIN_MENU 2
-//Кнопка включения музыки
-#define MENU_PHONK 2001
+//кнопка включения музыки
+#define MENU_MUSIC 2001
+//кнопка включения нормального уровня сложности
+#define MENU_DIFFICULTY_NORMAL 2101
+//кнопка включения хардкорного уровня сложности
+#define MENU_DIFFICULTY_HARDCORE 2102
