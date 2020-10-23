@@ -36,6 +36,9 @@
     <ClInclude Include="ScoreIO.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ColorConsts.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="flappy bird gr.cpp">

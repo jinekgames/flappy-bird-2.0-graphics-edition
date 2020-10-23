@@ -34,8 +34,18 @@ CHANGE LOGS
  - press f1 for activation lvl death
 ======================
 
+
 ========================
-plans for 2.1
+2.1.0.1 (23.10.2020)
+----------------------
+ - added lvl death mode sign
+ - added lvl death menu button
+ - added cmdline arg for sleep timeout setup
+======================
+
+
+========================
+plans for 2.1.1
 ---------------------
  - high score in death screen
  - high score local storage saving with nicknames

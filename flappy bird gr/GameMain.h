@@ -97,7 +97,7 @@ public:
 	//Получение набранных очков
 	int getScore();
 	//Изменение уровня сложности
-	bool makeHardcore();
+	void makeHardcore(bool hardcoreValue);
 	//Получение рекорда из файла
 	//int getRecord();
 };

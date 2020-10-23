@@ -30,5 +30,9 @@
 
 //главное меню
 #define MAIN_MENU 2
-//Кнопка включения музыки
+//кнопка включения музыки
 #define MENU_MUSIC 2001
+//кнопка включения нормального уровня сложности
+#define MENU_DIFFICULTY_NORMAL 2101
+//кнопка включения хардкорного уровня сложности
+#define MENU_DIFFICULTY_HARDCORE 2102

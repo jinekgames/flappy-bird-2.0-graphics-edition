@@ -105,8 +105,8 @@ int GameProc::getScore() {
 }
 
 //Изменение уровня сложности
-bool GameProc::makeHardcore() {
-	return hardcore = !hardcore;
+void GameProc::makeHardcore(bool hardcoreValue) {
+	hardcore = hardcoreValue;
 }
 
 ////Получение рекорда из файла

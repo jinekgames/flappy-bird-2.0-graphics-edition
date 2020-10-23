@@ -10,4 +10,10 @@ WAV_PHONK WAVE resources\phonk.wav
 MAIN_MENU MENU DISCARDABLE
 {
 	MENUITEM "музыка", MENU_MUSIC
+
+	POPUP "сложность"
+	{
+		MENUITEM "normal", MENU_DIFFICULTY_NORMAL
+		MENUITEM "lvl death", MENU_DIFFICULTY_HARDCORE
+	}
 }
